@@ -4,9 +4,6 @@ import os
 import sys
 import helpers
 import discord
-import duck_facts
-import io
-import aiohttp
 
 from economy import Economy
 
@@ -40,18 +37,6 @@ class CommandManager(disc_cmds.Cog, name='CommandManager'):
         leaderboard_embed.add_field(name='Names', value=name_string if name_string else 'N/A')
         leaderboard_embed.add_field(name='Points', value=point_string if point_string else 'N/A')
         await ctx.send(embed=leaderboard_embed)
-
-    @disc_cmds.command(name='duckfact')
-    async def duck_fact(self, ctx):
-        duck = duck_facts.DuckFact()
-        image = duck.get_image()
-        fact = duck.get_fact()
-
-        async with aiohttp.ClientSession() as session, session.get(image) as resp:
-            if resp.status != 200:
-                return await ctx.send('Could not download file...')
-            data = io.BytesIO(await resp.read())
-            await ctx.send(file=discord.File(data, 'duck.png'), content=fact)
 
     # TODO This command should be used for the bot to update itself
     # ! DEPRECATED for now
