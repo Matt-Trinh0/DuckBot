@@ -1,0 +1,1 @@
+REMIND_FILE = 'data/SERVER/reminder.yml'
